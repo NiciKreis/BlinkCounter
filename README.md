@@ -1,5 +1,6 @@
 # Blink Counter
-iOS app to count the number of blinks per minute.
+iOS app for iPad to count the number of blinks per minute. 
+(Graphical user interface could be warped on the iPhone)
 
  ## Run
  1. Open App
