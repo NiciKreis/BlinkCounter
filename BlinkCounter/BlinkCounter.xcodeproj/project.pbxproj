@@ -7,20 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000702962B9381A000646CAE /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000702952B9381A000646CAE /* Timer.swift */; };
 		007C05E12B90C3D100D3C06E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007C05E02B90C3D100D3C06E /* AppDelegate.swift */; };
 		007C05E32B90C3D100D3C06E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 007C05E22B90C3D100D3C06E /* art.scnassets */; };
 		007C05E52B90C3D100D3C06E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007C05E42B90C3D100D3C06E /* ViewController.swift */; };
 		007C05E82B90C3D100D3C06E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 007C05E62B90C3D100D3C06E /* Main.storyboard */; };
 		007C05EA2B90C3D200D3C06E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007C05E92B90C3D200D3C06E /* Assets.xcassets */; };
+		00E24CE22B91CDF000D018E7 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 00E24CE12B91CDF000D018E7 /* CSV */; };
+		00E24CE42B91FA4300D018E7 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E24CE32B91FA4300D018E7 /* Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000702952B9381A000646CAE /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		007C05DD2B90C3D100D3C06E /* BlinkCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlinkCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		007C05E02B90C3D100D3C06E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		007C05E22B90C3D100D3C06E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		007C05E42B90C3D100D3C06E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		007C05E72B90C3D100D3C06E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		007C05E92B90C3D200D3C06E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		00E24CE32B91FA4300D018E7 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E24CE22B91CDF000D018E7 /* CSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,8 @@
 				007C05E42B90C3D100D3C06E /* ViewController.swift */,
 				007C05E62B90C3D100D3C06E /* Main.storyboard */,
 				007C05E92B90C3D200D3C06E /* Assets.xcassets */,
+				00E24CE32B91FA4300D018E7 /* Storage.swift */,
+				000702952B9381A000646CAE /* Timer.swift */,
 			);
 			path = BlinkCounter;
 			sourceTree = "<group>";
@@ -78,6 +86,9 @@
 			dependencies = (
 			);
 			name = BlinkCounter;
+			packageProductDependencies = (
+				00E24CE12B91CDF000D018E7 /* CSV */,
+			);
 			productName = BlinkCounter;
 			productReference = 007C05DD2B90C3D100D3C06E /* BlinkCounter.app */;
 			productType = "com.apple.product-type.application";
@@ -106,6 +117,9 @@
 				Base,
 			);
 			mainGroup = 007C05D42B90C3D100D3C06E;
+			packageReferences = (
+				00E24CE02B91CDF000D018E7 /* XCRemoteSwiftPackageReference "CSV.swift" */,
+			);
 			productRefGroup = 007C05DE2B90C3D100D3C06E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -135,6 +149,8 @@
 			files = (
 				007C05E52B90C3D100D3C06E /* ViewController.swift in Sources */,
 				007C05E12B90C3D100D3C06E /* AppDelegate.swift in Sources */,
+				00E24CE42B91FA4300D018E7 /* Storage.swift in Sources */,
+				000702962B9381A000646CAE /* Timer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,13 +296,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QBJ85WUTBU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for AR face tracking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,13 +326,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QBJ85WUTBU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for AR face tracking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,6 +369,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		00E24CE02B91CDF000D018E7 /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00E24CE12B91CDF000D018E7 /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00E24CE02B91CDF000D018E7 /* XCRemoteSwiftPackageReference "CSV.swift" */;
+			productName = CSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 007C05D52B90C3D100D3C06E /* Project object */;
 }

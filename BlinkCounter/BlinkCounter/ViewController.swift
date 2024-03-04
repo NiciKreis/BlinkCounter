@@ -8,6 +8,8 @@
 import UIKit
 import SceneKit
 import ARKit
+import CSV
+import Foundation
 
 class ViewController: UIViewController, ARSCNViewDelegate {
     
@@ -48,7 +50,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var outputTime = ""
     
     
+    var previousName: String?
+    var previousTime: String?
+    
+    var outputBlendShapes: [String] = []
+    
+    //let fileName = "blendshapes.csv"
+    //let Path = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]).appendingPathComponent("blendshapes.csv")
+
+    
     override func viewDidLoad() {
+        try? deleteFile(at: getFilePath(for: "values.csv"))         //Delete old Log-File
+        print("viewDidLoad")
         super.viewDidLoad()
         
         guard ARFaceTrackingConfiguration.isSupported else {
@@ -60,6 +73,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         clockView.layer.cornerRadius = 15
         sceneView.delegate = self
         sceneView.showsStatistics = true
+        
         
     }
     
@@ -140,11 +154,41 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let cheekPuff = anchor.blendShapes[.cheekPuff]
         let eyeBlinkLeft = anchor.blendShapes[.eyeBlinkLeft]
         let eyeBlinkRight = anchor.blendShapes[.eyeBlinkRight]
+
         let jawOpen = anchor.blendShapes[.jawOpen]
         
+        /*
+        let blendShapeKey = anchor.blendShapes.map{$0.0}
+        let blendShapeValue = anchor.blendShapes.map{$0.1}
+        
+        
+        var blendShapeArray: [String] = []
+        
+        blendShapeArray.append("\(blendShapeKey)")
+        blendShapeArray.append("\(blendShapeValue)")
+        
+        print(blendShapeArray)
+        */
+        
+        let dictionary: [ARFaceAnchor.BlendShapeLocation : NSNumber] = anchor.blendShapes// your dictionary
+        let array: [(ARFaceAnchor.BlendShapeLocation, NSNumber)] = Array(dictionary)
+        
+        let faceStorage = FaceStorage(blendShapes: array)
+        
+        //CSV wird bei jedem Start der App gelöscht. Hier kommmen die ersten Blendshapes, daher kann das CSV erstmals erstellt werden.
+        //Ist das CSV erstellt, sollen keine Keys mehr abgefragt werden, sondern nurnoch die Values. --> Abfrage ob csv besteht, falls ja -> Werte schreiben. Eventuell könnte auch diese Funktion einmalig aufgerufen werden und die CSV datei anhand derer erstellt werden.
+   
+        if checkCSVFile() == false{
+            outputBlendShapes = faceStorage.outputKey()
+        }
+        else{
+            outputBlendShapes = faceStorage.outputValue()
+        }
+        CSV()
+
+
         var newFacePoseResult = ""
-        
-        
+
         
         if ((jawOpen?.decimalValue ?? 0.0) + (innerUp?.decimalValue ?? 0.0)) > 0.6 {
             newFacePoseResult = "😧"
@@ -186,6 +230,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+//    Timer
 
     @IBAction func buttonStart(){
         start(minutes: 1)
@@ -237,6 +282,68 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.outputTime = String(time)
 
     }
+    
+//    CSV
+
+    func checkCSVFile() -> Bool {
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent("values.csv")
+        return fileManager.fileExists(atPath: fileURL.path)
+    }
+    
+     
+    func deleteFile(at url: URL) throws {
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: url.path) {
+            try fileManager.removeItem(at: url)
+        } else {
+            print("File does not exist at path \(url.path)")
+        }
+    }
+    
+    func getFilePath(for filename: String) -> URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsDirectory.appendingPathComponent(filename)
+        return fileURL
+    }
+    
+    /*
+    func CSV(name: String, data: String) {
+        let filePath = getFilePath(for: "values.csv")
+        
+        let stream = OutputStream(toFileAtPath: filePath.path, append: true)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        if name != previousName || time != previousTime{
+            try! csv.write(row: [name, data, time])
+            csv.beginNewRow()
+            try! csv.write(row: [""])
+
+            previousName = name
+            previousTime = time
+         }
+         
+         csv.stream.close()
+     }
+     */
+
+    func CSV() {
+        let filePath = getFilePath(for: "values.csv")
+
+        let stream = OutputStream(toFileAtPath: filePath.path, append: true)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        if time != previousTime{
+            try! csv.write(row: outputBlendShapes)
+            csv.beginNewRow()
+            try! csv.write(row: [""])
+
+            previousTime = time
+         }
+         
+         csv.stream.close()
+     }
 }
 
 
